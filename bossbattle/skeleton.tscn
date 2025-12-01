@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dg7au4r5sjjgc"]
+
+[ext_resource type="Script" uid="uid://buvfdharatvds" path="res://skeleton.gd" id="1_plk42"]
+[ext_resource type="Texture2D" uid="uid://y66kboeytijw" path="res://skeleton.png" id="2_r6xse"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sv33q"]
+radius = 32.0156
+
+[node name="Skeleton" type="CharacterBody2D"]
+script = ExtResource("1_plk42")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 1)
+shape = SubResource("CircleShape2D_sv33q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-5, -4)
+scale = Vector2(0.0820681, 0.0820682)
+texture = ExtResource("2_r6xse")

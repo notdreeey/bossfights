@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://cyfw681q6j2f2"]
+
+[ext_resource type="Shader" uid="uid://ce30fdt1grqje" path="res://boss.gdshader" id="1_noeto"]
+[ext_resource type="Script" uid="uid://cmlb4x16j0bgq" path="res://boss_titan.gd" id="2_noeto"]
+[ext_resource type="Texture2D" uid="uid://cgdr65shtb4r6" path="res://titan.png" id="3_noeto"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnbgr"]
+shader = ExtResource("1_noeto")
+shader_parameter/active = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnbgr"]
+size = Vector2(206, 308)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xxrv"]
+bg_color = Color(0.698039, 0, 0, 1)
+
+[node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("health_bar") groups=["Boss"]]
+material = SubResource("ShaderMaterial_lnbgr")
+script = ExtResource("2_noeto")
+health_bar = NodePath("CanvasLayer/HealthBar")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(-7.43755, 38.474)
+scale = Vector2(0.352214, 0.352214)
+texture = ExtResource("3_noeto")
+
+[node name="StateTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7, 37)
+shape = SubResource("RectangleShape2D_lnbgr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+custom_minimum_size = Vector2(600, 30)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -296.0
+offset_top = -53.0
+offset_right = 304.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_6xxrv")
+show_percentage = false

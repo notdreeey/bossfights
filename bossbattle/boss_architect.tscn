@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://bw3nk2r8j4on1"]
+
+[ext_resource type="Shader" uid="uid://ce30fdt1grqje" path="res://boss.gdshader" id="1_5lcmf"]
+[ext_resource type="Script" uid="uid://jra8uwekar4m" path="res://boss_architect.gd" id="2_5lcmf"]
+[ext_resource type="Texture2D" uid="uid://be6om3syglvjb" path="res://bossing.png" id="3_y5xn2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnbgr"]
+shader = ExtResource("1_5lcmf")
+shader_parameter/active = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnbgr"]
+size = Vector2(248, 308)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xxrv"]
+bg_color = Color(0.698039, 0, 0, 1)
+
+[node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("health_bar") groups=["Boss"]]
+material = SubResource("ShaderMaterial_lnbgr")
+script = ExtResource("2_5lcmf")
+health_bar = NodePath("CanvasLayer/HealthBar")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(8, 31)
+scale = Vector2(0.318511, 0.318511)
+texture = ExtResource("3_y5xn2")
+
+[node name="StateTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 37)
+shape = SubResource("RectangleShape2D_lnbgr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+custom_minimum_size = Vector2(600, 30)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -296.0
+offset_top = -53.0
+offset_right = 304.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_6xxrv")
+show_percentage = false
