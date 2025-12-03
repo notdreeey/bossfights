@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bu22k2wax3epv"]
 
 [ext_resource type="PackedScene" uid="uid://dih4l1yol3kuq" path="res://player.tscn" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://bw3nk2r8j4on1" path="res://boss_architect.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://deewfb4fgdqac" path="res://range_hostile.tscn" id="2_0xm2m"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0xm2m"]
 
@@ -17,4 +17,13 @@ physics_material_override = SubResource("PhysicsMaterial_0xm2m")
 position = Vector2(-75, 647)
 polygon = PackedVector2Array(-1053, -1899, -890, 1284, 3197, 1512, 3266, -1634, 3295, 1720, 1042, 1497, -1074, 1607)
 
-[node name="Boss" parent="." instance=ExtResource("2_0xm2m")]
+[node name="RangeHostile" parent="." instance=ExtResource("2_0xm2m")]
+
+[node name="RangeHostile2" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(-137, -98)
+
+[node name="RangeHostile3" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(83, -156)
+
+[node name="RangeHostile4" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(246, -59)

@@ -25,17 +25,19 @@ func _physics_process(delta):
 	position += direction * speed * delta
 
 func _on_body_entered(body):
-	# Friendly Fire Check
+	# 1. FRIENDLY FIRE CHECKS
+	# Player can't hit Player
 	if team == "Player" and body.is_in_group("Player"): return
-	if team == "Boss" and body.is_in_group("Boss"): return
-	if team == "Boss" and body.is_in_group("Enemies"): return # Don't shoot minions
+	
+	# "Hostile" or "Boss" bullets should NOT hit "Hostile" or "Boss" units
+	if (team == "Boss" or team == "Hostile") and (body.is_in_group("Boss") or body.is_in_group("Hostile")): 
+		return
 
-	# Hit Logic (Boss, Player, or Skeleton)
-	if body.is_in_group("Boss") or body.is_in_group("Player") or body.is_in_group("Enemies"):
-		if body.has_method("take_damage"):
-			body.take_damage(damage)
-			queue_free() 
-			return
+	# 2. HIT LOGIC
+	if body.has_method("take_damage"):
+		body.take_damage(damage)
+		queue_free() 
+		return
 
-	# Wall Logic
+	# 3. WALL LOGIC
 	queue_free()

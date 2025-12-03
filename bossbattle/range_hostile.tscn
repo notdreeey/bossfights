@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://deewfb4fgdqac"]
+
+[ext_resource type="Script" uid="uid://b5nxsofvcfcxr" path="res://range_hostile.gd" id="1_wquyf"]
+[ext_resource type="Texture2D" uid="uid://duilvjudovxgc" path="res://range_hostile.png" id="2_yl4cp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lpfko"]
+radius = 34.0147
+
+[node name="RangeHostile" type="CharacterBody2D" groups=["Hostile"]]
+script = ExtResource("1_wquyf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+scale = Vector2(0.29393, 0.29393)
+texture = ExtResource("2_yl4cp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, -3)
+shape = SubResource("CircleShape2D_lpfko")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true

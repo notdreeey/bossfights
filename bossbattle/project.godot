@@ -14,3 +14,7 @@ config/name="BOSSBATTLE"
 run/main_scene="uid://bu22k2wax3epv"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[global_group]
+
+Hostile=""

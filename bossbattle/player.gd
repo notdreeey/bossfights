@@ -6,9 +6,6 @@ extends CharacterBody2D
 @export var fire_rate = 0.3 
 
 # VISIBILITY MARGIN
-# Adds an invisible buffer around the screen. 
-# If set to 100, the auto-aim works even if the enemy is 100px OFF-SCREEN.
-# This ensures that if even a "few pixels" are visible, we lock on.
 @export var aim_margin = 100.0
 
 # --- NODES ---
@@ -42,23 +39,22 @@ func move_logic():
 		last_move_direction = velocity.normalized()
 
 func auto_aim_logic():
-	# 1. CALCULATE CAMERA BOUNDS + MARGIN
+	# 1. GATHER ALL TARGETS (Consolidated into one list)
+	var targets = []
+	targets.append_array(get_tree().get_nodes_in_group("Boss"))
+	targets.append_array(get_tree().get_nodes_in_group("Hostile"))
+	# If you still have the melee guys in "Enemies", uncomment the next line:
+	# targets.append_array(get_tree().get_nodes_in_group("Enemies"))
+	
+	# 2. CALCULATE CAMERA BOUNDS + MARGIN
 	var screen_size = get_viewport_rect().size / camera.zoom
 	var camera_center = camera.get_screen_center_position()
 	var top_left = camera_center - (screen_size / 2)
 	
-	# Create the standard camera box
 	var camera_rect = Rect2(top_left, screen_size)
-	
-	# THE FIX: Grow the box by the margin!
-	# This catches enemies that are "peeking" into the screen
 	var detection_rect = camera_rect.grow(aim_margin)
 
-	# 2. FIND NEAREST ENEMY INSIDE THE EXPANDED BOX
-	var targets = []
-	targets.append_array(get_tree().get_nodes_in_group("Boss"))
-	targets.append_array(get_tree().get_nodes_in_group("Enemies"))
-	
+	# 3. FIND NEAREST ENEMY INSIDE THE BOX
 	var nearest_node = null
 	var shortest_dist = INF 
 	
@@ -71,7 +67,7 @@ func auto_aim_logic():
 					shortest_dist = dist
 					nearest_node = target
 	
-	# 3. AIMING DECISION
+	# 4. AIMING DECISION
 	if nearest_node != null:
 		# --- AUTO AIM ---
 		hand.look_at(nearest_node.global_position)
